@@ -1,0 +1,50 @@
+/ScoutMind-Extension
+├── /assets
+│   ├── /icons
+│   │   ├── icon16.png
+│   │   ├── icon48.png
+│   │   └── icon128.png
+├── /background
+│   ├── background.js
+│   ├── messaging.js
+├── /content
+│   ├── content-script.js
+│   ├── basic-highlighter.js
+│   ├── webview-controller.js
+├── /ui
+│   ├── popup.html
+│   ├── popup.css
+│   ├── popup.js
+│   ├── /components
+│   │   ├── Header.js
+│   │   ├── InputField.js
+│   │   ├── EventLog.js
+│   └── /styles
+│       ├── main.css
+│       └── theme.css
+├── /agents
+│   ├── orchestrator.js
+│   ├── planner-agent.js
+│   ├── selector-agent.js
+│   ├── extractor-agent.js
+│   ├── validator-agent.js
+│   ├── error-recovery-agent.js
+├── /llm
+│   ├── llm-bridge.js
+│   ├── ollama-connector.js
+│   ├── external-connector.js
+│   ├── prompt-templates.js
+│   └── response-parsers.js
+├── /data
+│   ├── data-extractor.js
+│   ├── selector-validator.js
+│   ├── export-manager.js
+│   └── data-transformer.js
+├── /utils
+│   ├── storage-manager.js
+│   ├── messaging.js
+│   ├── dom-utils.js
+│   ├── logger.js
+│   └── performance-monitor.js
+├── manifest.json
+└── README.md

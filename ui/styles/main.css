@@ -1,0 +1,496 @@
+/* ui/styles/main.css */
+
+/* Optional: Import theme variables if not handled by build process or HTML linking order */
+/* @import url('theme.css'); */
+
+/* --- Base Styles --- */
+html, body {
+    font-family: var(--font-family-sans-serif);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    margin: 0;
+    padding: 0;
+    width: var(--popup-width);
+    height: var(--popup-height);
+    overflow: hidden; /* Prevent scrollbars on the body */
+    color: var(--body-color);
+    background-color: var(--body-bg);
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* --- Main Layout --- */
+#app-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#config-panel {
+    width: var(--config-panel-width);
+    min-width: var(--min-config-width);
+    max-width: 50%;
+    height: 100%;
+    border-right: var(--border-width) solid var(--border-color);
+    background-color: var(--gray-100);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: width 0.3s ease; /* For potential collapse/resize */
+}
+
+#main-content-area {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--body-bg);
+}
+
+/* --- Panel Structure --- */
+.panel-header {
+    padding: var(--spacing-md) var(--panel-padding);
+    border-bottom: var(--border-width) solid var(--border-color);
+    background-color: var(--body-bg);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--header-height);
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.2;
+}
+
+.panel-content {
+    padding: var(--panel-padding);
+    overflow-y: auto; /* Allow content area to scroll */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.panel-footer {
+    padding: var(--spacing-sm) var(--panel-padding);
+    border-top: var(--border-width) solid var(--border-color);
+    background-color: var(--body-bg);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--footer-height);
+    gap: var(--spacing-md);
+}
+
+/* --- Forms & Inputs --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-group label {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xs);
+}
+
+.url-input-wrapper {
+    display: flex;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-base);
+    color: var(--body-color);
+    background-color: var(--body-bg);
+    background-clip: padding-box;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    color: var(--body-color);
+    background-color: var(--body-bg);
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: var(--focus-shadow);
+}
+input::placeholder,
+textarea::placeholder {
+    color: var(--gray-500);
+    opacity: 1;
+}
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: var(--gray-200);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Select element styles are already covered in the combined selector above */
+
+/* Specific input adjustments */
+#config-panel input[type="url"] { /* Inside URL wrapper */
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+#load-url-btn { /* Inside URL wrapper */
+    padding: 0 var(--spacing-md);
+    border: var(--border-width) solid var(--border-color);
+    border-left: none;
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: var(--transition-base);
+    flex-shrink: 0;
+}
+#load-url-btn:hover {
+    background-color: var(--gray-300);
+    color: var(--gray-800);
+}
+
+/* --- Buttons --- */
+button {
+    display: inline-block;
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-base);
+    color: var(--body-color); /* Default text color */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: var(--border-width) solid transparent;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    font-size: var(--font-size-base);
+    border-radius: var(--border-radius);
+    transition: var(--transition-base);
+}
+button:focus {
+    outline: 0;
+    box-shadow: var(--focus-shadow);
+}
+button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.primary-button,
+button#extract-btn { /* Apply primary style to extract button */
+    color: var(--primary-color-text);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.primary-button:hover:not(:disabled),
+button#extract-btn:hover:not(:disabled) {
+    color: var(--primary-color-text);
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+.primary-button:active:not(:disabled),
+button#extract-btn:active:not(:disabled) {
+    color: var(--primary-color-text);
+    background-color: var(--primary-color-darker);
+    border-color: var(--primary-color-darker);
+}
+
+.secondary-button,
+button#export-btn { /* Apply secondary style to export button */
+    color: var(--secondary-color-text);
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+.secondary-button:hover:not(:disabled),
+button#export-btn:hover:not(:disabled) {
+    color: var(--secondary-color-text);
+    background-color: var(--secondary-color-dark);
+    border-color: var(--secondary-color-dark);
+}
+
+.close-button,
+button#close-results-btn { /* Style close buttons */
+    background: none;
+    border: none;
+    font-size: 1.5em; /* Larger */
+    font-weight: bold;
+    color: var(--gray-500);
+    padding: 0 var(--spacing-sm);
+    line-height: 1;
+}
+.close-button:hover,
+button#close-results-btn:hover {
+    color: var(--danger-color);
+}
+
+/* --- Progress Indicator / Event Log --- */
+#extraction-progress,
+.event-log { /* Style for component if used */
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    gap: var(--spacing-sm);
+    /* Inherits panel-footer styles if placed there */
+}
+#progress-message,
+.log-message {
+    flex-grow: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.spinner,
+.log-spinner {
+    border: 3px solid var(--gray-300);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    flex-shrink: 0;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Webview & Results --- */
+#webview-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--gray-100); /* Background while loading */
+}
+
+#webview-iframe {
+    flex-grow: 1;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.error-overlay { /* For webview errors */
+    position: absolute;
+    inset: 0; /* Covers entire parent */
+    background-color: var(--danger-color-light);
+    color: var(--danger-text-on-light);
+    padding: var(--spacing-xl);
+    border: var(--border-width) solid var(--danger-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: var(--zindex-overlay);
+}
+.error-overlay p {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm);
+}
+.error-overlay .error-details {
+    font-size: var(--font-size-base);
+    color: var(--danger-color-dark);
+}
+
+#results-panel {
+    position: absolute; /* Overlay on top of webview */
+    inset: 0;
+    background-color: var(--body-bg);
+    z-index: calc(var(--zindex-overlay) + 10); /* Above webview error */
+    display: flex;
+    flex-direction: column;
+    border-left: var(--border-width) solid var(--border-color);
+}
+
+#results-viewer {
+    flex-grow: 1;
+    overflow: auto;
+    padding: var(--panel-padding);
+}
+#results-viewer table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+#results-viewer th, #results-viewer td {
+    border: var(--border-width) solid var(--border-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    vertical-align: top;
+}
+#results-viewer th {
+    background-color: var(--gray-100);
+    font-weight: var(--font-weight-medium);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+#results-viewer tr:nth-child(even) td {
+    background-color: var(--gray-100);
+}
+#results-viewer p { /* Placeholder text */
+    color: var(--gray-600);
+    text-align: center;
+    margin-top: var(--spacing-xl);
+}
+
+#export-controls { /* In results footer */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+#export-controls label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--gray-600);
+    white-space: nowrap;
+}
+#export-controls select {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    flex-grow: 1;
+}
+#export-controls button {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+/* --- Selector Editor --- */
+#selector-editor-container {
+    border-top: var(--border-width) solid var(--border-color);
+    padding-top: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+.section-title {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--body-color);
+}
+#selector-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    max-height: 150px; /* Limit height */
+    overflow-y: auto;
+    padding-right: var(--spacing-sm); /* Space for scrollbar */
+}
+.selector-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+}
+.selector-label {
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    color: var(--gray-700);
+}
+.selector-input {
+    flex-grow: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family-monospace); /* Use monospace for selectors */
+}
+.test-selector-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: calc(var(--font-size-sm) * 0.9);
+    background-color: var(--gray-200);
+    border-color: var(--border-color);
+    color: var(--gray-700);
+    border-radius: var(--border-radius-sm);
+    flex-shrink: 0;
+}
+.test-selector-btn:hover {
+    background-color: var(--gray-300);
+}
+.selector-count {
+    font-size: calc(var(--font-size-sm) * 0.9);
+    color: var(--gray-600);
+    min-width: 35px; /* Reserve space */
+    text-align: right;
+    font-family: var(--font-family-monospace);
+    flex-shrink: 0;
+}
+#refine-selectors-btn {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+    /* Add specific styling if needed */
+}
+
+
+/* --- Utility --- */
+.hidden {
+    display: none !important;
+}
+
+/* --- Content Script Highlighter Styles --- */
+/* These styles are injected into the target page via manifest.json */
+#scoutmind-highlight-overlay {
+    position: absolute;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+.scoutmind-highlight {
+    /* Base styles - JS sets position, size, border, background */
+    box-sizing: border-box;
+    transition: all 0.15s ease-in-out;
+    z-index: var(--zindex-content-highlight); /* Ensure highlights are above page content */
+    /* Default border/bg set by JS, but can have base styles */
+    border-radius: 3px;
+}
+

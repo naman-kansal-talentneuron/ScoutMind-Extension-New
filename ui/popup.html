@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScoutMind</title>
+    <link rel="stylesheet" href="styles/theme.css"> <!-- Load theme first -->
+    <link rel="stylesheet" href="styles/main.css">  <!-- Load main styles -->
+</head>
+
+<body>
+    <div id="app-container">
+        <!-- Configuration Panel (Left) -->
+        <div id="config-panel">
+            <div class="panel-header">
+                <h2>ScoutMind Config</h2>
+                <!-- Add logo or icons if desired -->
+            </div>
+
+            <div class="panel-content">
+                <div class="input-group">
+                    <label for="url-input">Target URL:</label>
+                    <div class="url-input-wrapper">
+                        <input type="url" id="url-input" placeholder="https://example.com" required>
+                        <button id="load-url-btn" title="Load URL in Webview">Load</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="instruction-input">Extraction Instructions:</label>
+                    <textarea id="instruction-input" rows="4" placeholder="e.g., Extract all product names, prices, and ratings"></textarea>
+                </div>
+
+                 <div class="input-group">
+                    <label for="llm-provider-select">LLM Provider:</label>
+                    <select id="llm-provider-select">
+                        <option value="ollama">Ollama (Local)</option>
+                        <option value="mistral">Mistral (Cloud)</option>
+                        <option value="openai">OpenAI (Cloud)</option>
+                        <!-- Add more providers dynamically if needed -->
+                    </select>
+                </div>
+
+                <button id="extract-btn" class="primary-button">Extract Data</button>
+
+                <!-- Selector Editor (Initially Hidden) -->
+                <div id="selector-editor-container" class="collapsible-section" style="display: none;">
+                    <h3 class="section-title">Selector Editor</h3>
+                    <div id="selector-list">
+                        <!-- Selector items will be dynamically added here -->
+                        <!-- Example item structure:
+                        <div class="selector-item">
+                            <span class="selector-label">Product Name:</span>
+                            <input type="text" class="selector-input" value="div.product > h2">
+                            <button class="test-selector-btn">Test</button>
+                            <span class="selector-count"></span>
+                        </div>
+                        -->
+                    </div>
+                    <button id="refine-selectors-btn">Refine with AI</button>
+                </div>
+            </div>
+
+            <div id="extraction-progress" class="panel-footer">
+                <span id="progress-message">Ready</span>
+                <div id="spinner" class="spinner" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Resize Handle (Optional, requires JS) -->
+        <!-- <div id="resize-handle"></div> -->
+
+        <!-- Main Content Area (Right) -->
+        <div id="main-content-area">
+            <!-- Webview Panel -->
+            <div id="webview-panel">
+                 <div id="webview-controls" style="display: none;"> <!-- Optional controls -->
+                     <button id="webview-back-btn" title="Back">&lt;</button>
+                     <button id="webview-forward-btn" title="Forward">&gt;</button>
+                     <button id="webview-reload-btn" title="Reload">&#x21bb;</button>
+                 </div>
+                <iframe id="webview-iframe" src="about:blank" frameborder="0"></iframe>
+                 <!-- Error Display Overlay -->
+                 <div id="webview-error-display" class="error-overlay" style="display: none;">
+                     <p>Error loading page.</p>
+                     <span class="error-details"></span>
+                 </div>
+            </div>
+
+            <!-- Results Panel (Overlays or replaces Webview when active) -->
+             <div id="results-panel" style="display: none;">
+                 <div class="panel-header">
+                     <h2>Extraction Results</h2>
+                     <button id="close-results-btn" title="Close Results">X</button>
+                 </div>
+                 <div id="results-viewer" class="panel-content">
+                     <!-- Results table/view will be dynamically added here -->
+                     <p>No results yet.</p>
+                 </div>
+                 <div id="export-controls" class="panel-footer">
+                     <label for="export-format">Export as:</label>
+                     <select id="export-format">
+                         <option value="csv">CSV</option>
+                         <option value="json">JSON</option>
+                         <option value="xlsx">XLSX (Requires library)</option>
+                     </select>
+                     <button id="export-btn" class="secondary-button">Download</button>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <!-- Main Popup Script -->
+    <script src="popup.js"></script>
+    <!-- Load other UI component scripts if not bundled -->
+    <!-- These would ideally be imported by popup.js if using modules -->
+    <!--
+    <script src="../js/utils/messaging.js"></script>
+    <script src="../js/utils/storage-manager.js"></script>
+    <script src="../js/ui/config-panel.js"></script>
+    <script src="../js/ui/webview-controller.js"></script>
+    <script src="../js/ui/selector-editor.js"></script>
+    <script src="../js/ui/extraction-results.js"></script>
+    <script src="../js/data/export-manager.js"></script>
+    -->
+</body>
+</html>

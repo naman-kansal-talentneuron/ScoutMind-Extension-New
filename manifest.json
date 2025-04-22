@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "ScoutMind",
+  "description": "AI-powered web data extraction Chrome extension using natural language.",
+  "version": "0.3.0",
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "declarativeNetRequest",
+    "tabs",
+    "offscreen"
+  ],
+
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "background": {
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "content/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    },
+    "default_title": "ScoutMind"
+  },
+
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "utils/*",
+        "llm/*",
+        "agents/*",
+        "offscreen.html"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
+  "options_page": "settings/settings.html",
+
+  "commands": {
+  }
+}
