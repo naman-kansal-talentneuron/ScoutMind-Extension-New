@@ -7,11 +7,11 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      background: './background/index.js',
-      content: './content/index.js',
-      popup: './popup/popup.js',
-      settings: './settings/settings.js',
-      // Add other entry points if needed (e.g., offscreen.js)
+      background: './scout-mind-extension/src/background/background.ts',
+      content: './scout-mind-extension/src/content/content.ts',
+      popup: './scout-mind-extension/src/popup/popup.tsx',
+      options: './scout-mind-extension/src/options/options.tsx',
+      offscreen: './scout-mind-extension/src/offscreen/offscreen.ts',
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -21,42 +21,49 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.(js|jsx|ts|tsx)$/, // Added ts|tsx
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'] // Added @babel/preset-typescript
             }
           }
         },
         {
           test: /\.css$/i,
-          include: path.resolve(__dirname, 'popup/styles'), // Or wherever your main CSS is
-          use: ['style-loader', 'css-loader', 'postcss-loader'],
+          // Assuming Tailwind will be set up for scout-mind-extension later,
+          // for now, this rule might not be immediately used by empty TSX files, or could point to a global style.
+          // If scout-mind-extension has its own main CSS, adjust 'include'.
+          // For now, keep as is or make it more general if needed:
+          // include: path.resolve(__dirname, 'scout-mind-extension/src/popup/styles'), 
+          use: ['style-loader', 'css-loader', 'postcss-loader'], // Ensure postcss-loader is for Tailwind
         },
-        // Add loaders for other asset types if needed (e.g., images, fonts)
       ],
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'], // Added .ts, .tsx
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './popup/popup.html',
+        template: './scout-mind-extension/src/popup/popup.html', // Path to new template
         filename: 'popup.html',
-        chunks: ['popup'], // Only include the popup bundle
+        chunks: ['popup'],
       }),
       new HtmlWebpackPlugin({
-        template: './settings/settings.html',
-        filename: 'settings.html',
-        chunks: ['settings'], // Only include the settings bundle
+        template: './scout-mind-extension/src/options/options.html', // Path to new template
+        filename: 'options.html', // Output options.html
+        chunks: ['options'], 
       }),
-      // Add HtmlWebpackPlugin for offscreen.html if you have one
+      new HtmlWebpackPlugin({
+        template: './scout-mind-extension/public/offscreen.html',
+        filename: 'offscreen.html',
+        chunks: ['offscreen'], // Only include offscreen.bundle.js
+      }),
       new CopyWebpackPlugin({
         patterns: [
-          { from: 'manifest.json', to: 'manifest.json' },
-          { from: 'assets', to: 'assets' },
+          { from: './scout-mind-extension/src/manifest.json', to: 'manifest.json' },
+          { from: 'assets', to: 'assets' }, // Assuming global assets for now
           // Add other static assets if needed (e.g., offscreen.html)
         ],
       }),

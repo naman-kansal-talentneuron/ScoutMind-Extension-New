@@ -1,0 +1,18 @@
+/* scout-mind-extension/src/content/contentStyles.css */
+.scoutmind-smx-highlight {
+  outline: 2px dashed red !important; /* Use outline to avoid layout shifts */
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  box-sizing: border-box !important;
+  /* Add pointer-events: none; if highlights should not interfere with clicks on the page */
+}
+
+.scoutmind-smx-highlight-label { /* Optional label styling */
+  position: absolute;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 1px 3px;
+  border-radius: 2px;
+  z-index: 99999; /* Ensure it's on top */
+  /* JS will need to position this near the highlighted element */
+}

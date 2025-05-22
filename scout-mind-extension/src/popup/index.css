@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: sans-serif; /* Basic font */
+    width: 350px; /* Example fixed width */
+    padding: 15px;
+    background-color: #f9fafb; /* A light gray background like Tailwind's gray-50 */
+}
+#popup-root {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
